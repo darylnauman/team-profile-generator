@@ -19,5 +19,11 @@
   "bugs": {
     "url": "https://github.com/darylnauman/team-profile-generator/issues"
   },
-  "homepage": "https://github.com/darylnauman/team-profile-generator#readme"
+  "homepage": "https://github.com/darylnauman/team-profile-generator#readme",
+  "dependencies": {
+    "inquirer": "^8.1.0"
+  },
+  "devDependencies": {
+    "jest": "^27.0.4"
+  }
 }
