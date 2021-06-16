@@ -1,22 +1,16 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
+const createHTML = require('./src/create-html.js')
 
 const Employee = require('./lib/Employee.js')
 const Manager = require('./lib/Manager.js')
 const Intern = require('./lib/Intern.js')
 const Engineer = require('./lib/Engineer.js');
 
-const members = [];
-
-// manager - first
-// employee - name, id, email
-// ask role specific questions
-// create object (manager, intern, engineer)
-// push to array of employees
+const staff = [];
 
 function getEmployeeData (role) {
-
-    inquirer
+    return inquirer
         .prompt([
             {
                 type: 'input',
@@ -50,10 +44,16 @@ function getEmployeeData (role) {
                 message: "What is the intern's school? ",
                 name: 'school',
                 when: role === 'intern'
+            }, 
+            {
+                type: 'list',
+                message: `What do you wish to do next?`,
+                name: 'nextStep',
+                choices: ['Add an engineer', 'Add an intern', 'Build my team']
             }
         ])
         .then((response) => {
-            // console.log(response);
+            
             let newEmployee= {};
 
             switch (role) {
@@ -71,52 +71,39 @@ function getEmployeeData (role) {
             }
             
             // add new employee to array of all employees
-            members.push(newEmployee);
-            
-            console.log(`Current details of all employees:`);
-            members.forEach(employee => console.log(employee));
+            staff.push(newEmployee);
 
-            addEmployeePrompt();
-
+            if (response.nextStep === 'Add an engineer') {
+                return getEmployeeData('engineer');
+            } else if (response.nextStep === 'Add an intern') {
+                return getEmployeeData('intern');
+            } else {
+                return;
+            }
         })
 }
 
-function addEmployeePrompt () {
-    inquirer
-        .prompt([
-            {
-                type: 'list',
-                message: `What do you wish to do next?`,
-                name: 'nextStep',
-                choices: ['Add an engineer', 'Add an intern', 'Build my team']
-            }
-        ])
-        .then((response) => {
-            // console.log(response);
-            
-            switch (response.nextStep) {
-                case 'Add an engineer':
-                    getEmployeeData('engineer');
-                    break;
-                case 'Add an intern':
-                    getEmployeeData('intern');
-                    break;
-                case 'Build my team':
-                    // render page soon
-                    break;
-                default:
-                    throw new Error('error within addEmployeePrompt')
-            }
-        })  
+function writeToFile(generatedHTML) {
+    fs.writeFile("./dist/index.html", generatedHTML, (err) => 
+    err ? console.log(err) : console.log('Success!'))
 }
 
-function init () {
+function init() {
+    console.log('\nWelcome to the Team Profile Generator.')
     console.log('Begin by entering manager information.');
-    getEmployeeData('manager');
+    
+    getEmployeeData('manager')
+        .then( () => {
+            console.log(`Current details of all employees:`);
+            staff.forEach(employee => console.log(employee));
+            return createHTML(staff)
+        })
+        .then((generatedHTML) => {
+            writeToFile(generatedHTML)
+        })
 }
 
 init();
-
 
 // manager.getName()  <== when writing to file, etc.
 
