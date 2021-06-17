@@ -5,7 +5,7 @@ const Engineer = require('../lib/Engineer.js');
 
 function createManagerCard(manager) {
 
-    return `<div class="card m-3" style="width: 15rem;">
+    return `<div class="card m-3" style="width: 18rem;">
                 <div class="card-header bg-primary text-white">
                     <h4>${manager.getName()}</h4>
                     <h5>${manager.getRole()}</h5>
@@ -24,7 +24,7 @@ function createManagerCard(manager) {
 
 function createEngineerCard(engineer) {
 
-    return `<div class="card m-3" style="width: 15rem;">
+    return `<div class="card m-3" style="width: 18rem;">
                 <div class="card-header bg-primary text-white">
                     <h4>${engineer.getName()}</h4>
                     <h5>${engineer.getRole()}</h5>
@@ -43,7 +43,7 @@ function createEngineerCard(engineer) {
 
 function createInternCard(intern) {
 
-    return `<div class="card m-3" style="width: 15rem;">
+    return `<div class="card m-3" style="width: 18rem;">
                 <div class="card-header bg-primary text-white">
                     <h4>${intern.getName()}</h4>
                     <h5>${intern.getRole()}</h5>
