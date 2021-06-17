@@ -79,11 +79,7 @@ function getEmployeeData (role) {
             } else if (response.nextStep === 'Add an intern') {
                 return getEmployeeData('intern');
             } else {
-                // staff.forEach(employee => {
-                //     console.log(`About to call createHTML, here are the staff names ${employee.name}`)
-                // })
                 const html = createHTML(staff);
-                // console.log(html);
                 writeToFile(html);
             }
         })
@@ -101,11 +97,3 @@ function init() {
 }
 
 init();
-
-// manager.getName()  <== when writing to file, etc.
-
-// const manager = new Manager(response.name)
-// const newEmployee = {
-//     name: manager.getName(),
-//     id: manager.getId()
-//     role: manager.getRole()

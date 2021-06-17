@@ -14,7 +14,7 @@ function createManagerCard(manager) {
                     <ul class="list-group">
                         <li class="list-group-item">ID: ${manager.getId()}</li>
                         <li class="list-group-item">Email: <a href="mailto:${manager.getEmail()}">${manager.getEmail()}</a></li>
-                        <li class="list-group-item">Office: </li>
+                        <li class="list-group-item">Office: ${manager.officeNumber} </li>
                     </ul>
                 </div>
             </div>
