@@ -10,6 +10,7 @@ const Engineer = require('./lib/Engineer.js');
 const staff = [];
 
 function getEmployeeData (role) {
+    
     return inquirer
         .prompt([
             {
@@ -78,7 +79,12 @@ function getEmployeeData (role) {
             } else if (response.nextStep === 'Add an intern') {
                 return getEmployeeData('intern');
             } else {
-                return;
+                // staff.forEach(employee => {
+                //     console.log(`About to call createHTML, here are the staff names ${employee.name}`)
+                // })
+                const html = createHTML(staff);
+                console.log(html);
+                writeToFile(html);
             }
         })
 }
@@ -91,16 +97,7 @@ function writeToFile(generatedHTML) {
 function init() {
     console.log('\nWelcome to the Team Profile Generator.')
     console.log('Begin by entering manager information.');
-    
     getEmployeeData('manager')
-        .then( () => {
-            console.log(`Current details of all employees:`);
-            staff.forEach(employee => console.log(employee));
-            return createHTML(staff)
-        })
-        .then((generatedHTML) => {
-            writeToFile(generatedHTML)
-        })
 }
 
 init();
