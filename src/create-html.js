@@ -3,21 +3,75 @@ const Manager = require('../lib/Manager.js')
 const Intern = require('../lib/Intern.js')
 const Engineer = require('../lib/Engineer.js');
 
-// function createCards() {
-//     staff.forEach(employee => {
-//         console.log(`About to createCards, this staff member is a ${employee.getRole()}`)
-//    })   
-// }
+function createManagerCard(manager) {
 
-function createHTML(staff) {
+    return `<div class="card m-3" style="width: 15rem;">
+                <div class="card-header bg-primary text-white">
+                    <h4>${manager.getName()}</h4>
+                    <h5>${manager.getRole()}</h5>
+                </div>
+                <div class="card-body" style="background-color:#D9D9D9;">
+                    <ul class="list-group">
+                        <li class="list-group-item">ID: ${manager.getId()}</li>
+                        <li class="list-group-item">Email: <a href="mailto:${manager.getEmail()}">${manager.getEmail()}</a></li>
+                        <li class="list-group-item">Office: </li>
+                    </ul>
+                </div>
+            </div>
     
-    console.log('In createHTML');
-        
-    staff.forEach(employee => {
-        console.log(`About to createCards, this staff member is a ${employee.getRole()}`)
-    })  
+            `
+}
 
+function createEngineerCard(engineer) {
+
+    return `<div class="card m-3" style="width: 15rem;">
+                <div class="card-header bg-primary text-white">
+                    <h4>${engineer.getName()}</h4>
+                    <h5>${engineer.getRole()}</h5>
+                </div>
+                <div class="card-body" style="background-color:#D9D9D9;">
+                    <ul class="list-group">
+                        <li class="list-group-item">ID: ${engineer.getId()}</li>
+                        <li class="list-group-item">Email: <a href="mailto:${engineer.getEmail()}">${engineer.getEmail()}<a></li>
+                        <li class="list-group-item">GitHub: <a href="https://github.com/${engineer.getGithub()}" target="_blank">${engineer.getGithub()}</a></li>
+                    </ul>
+                </div>
+            </div>
+    
+            `
+}
+
+function createInternCard(intern) {
+
+    return `<div class="card m-3" style="width: 15rem;">
+                <div class="card-header bg-primary text-white">
+                    <h4>${intern.getName()}</h4>
+                    <h5>${intern.getRole()}</h5>
+                </div>
+                <div class="card-body" style="background-color:#D9D9D9;">
+                    <ul class="list-group">
+                        <li class="list-group-item">ID: ${intern.getId()}</li>
+                        <li class="list-group-item">Email: <a href="mailto:${intern.getEmail()}">${intern.getEmail()}</a></li>
+                        <li class="list-group-item">School: ${intern.getSchool()}</li>
+                    </ul>
+                </div>
+            </div>
+    
+            `
+}
+    
+function createHTML(staff) {
  
+    const cards = staff.map((employee) => {
+        if (employee.getRole() == "Manager") {
+            return createManagerCard(employee);
+        } else if (employee.getRole() == "Engineer") {
+            return createEngineerCard(employee);
+        } else if (employee.getRole() == "Intern") {
+            return createInternCard(employee);
+        }
+    }).join('')
+
  return `<!DOCTYPE html>
  <html lang="en">
  
@@ -36,56 +90,11 @@ function createHTML(staff) {
          <h1 class="display-5 text-white text-center">My Team</h1>
      </header>
 
-     <div>
-    
-     
-     </div>
- 
      <!-- Main -->
      <main class = "container">
          <div class = "row d-flex justify-content-center">
  
-             <div class="card m-3" style="width: 15rem;">
-                 <div class="card-header bg-primary text-white">
-                     <h4>Name</h4>
-                     <h5>Role</h5>
-                 </div>
-                 <div class="card-body" style="background-color:#D9D9D9;">
-                     <ul class="list-group">
-                         <li class="list-group-item">ID: </li>
-                         <li class="list-group-item">Email: </li>
-                         <li class="list-group-item">OTHER: </li>
-                     </ul>
-                 </div>
-             </div>
- 
-             <div class="card m-3" style="width: 15rem;">
-                 <div class="card-header bg-primary text-white">
-                     <h4>Name</h4>
-                     <h5>Role</h5>
-                 </div>
-                 <div class="card-body" style="background-color:#D9D9D9;">
-                     <ul class="list-group">
-                         <li class="list-group-item">ID: </li>
-                         <li class="list-group-item">Email: </li>
-                         <li class="list-group-item">OTHER: </li>
-                     </ul>
-                 </div>
-             </div>
- 
-             <div class="card m-3" style="width: 15rem;">
-                 <div class="card-header bg-primary text-white">
-                     <h4>Name</h4>
-                     <h5>Role</h5>
-                 </div>
-                 <div class="card-body" style="background-color:#D9D9D9;">
-                     <ul class="list-group">
-                         <li class="list-group-item">ID: </li>
-                         <li class="list-group-item">Email: </li>
-                         <li class="list-group-item">OTHER: </li>
-                     </ul>
-                 </div>
-             </div>
+         ${cards}
  
          </div>
      </main>

@@ -83,7 +83,7 @@ function getEmployeeData (role) {
                 //     console.log(`About to call createHTML, here are the staff names ${employee.name}`)
                 // })
                 const html = createHTML(staff);
-                console.log(html);
+                // console.log(html);
                 writeToFile(html);
             }
         })
